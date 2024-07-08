@@ -1,11 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    test app of tweet
-</body>
-</html>
+{% extends "twigo/layout.html" %}
+{% block twigo %}
+<div class="container mx-auto px-4 py-8 mt-10">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Twigos</h3>
+        </div>
+        <div class="border-t border-gray-200">
+            <ul class="divide-y divide-gray-200">
+                <!-- Example Tweet Item -->
+                <li class="px-4 py-4 sm:px-6">
+                    <div class="flex space-x-3">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm font-medium text-gray-900">User Name</p>
+                            <p class="text-sm text-gray-500">@username</p>
+                            <p class="mt-1 text-sm text-gray-900">
+                                This is an example twigo. You can put the tweet content here. It can span multiple lines and should be well-formatted.
+                            </p>
+                            <!-- Image attachment -->
+                            <img class="mt-2 rounded-lg w-full" src="https://via.placeholder.com/600x400" alt="Attached Image">
+                            <div class="mt-2 flex justify-between">
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <svg class="mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 4.354a8.646 8.646 0 1 0 8.646 8.646A8.656 8.656 0 0 0 12 4.354zm-1.733 12.017l-3.422-3.421a.788.788 0 0 1 1.115-1.115l2.307 2.307V9.444a.788.788 0 0 1 1.575 0v4.698l2.307-2.307a.788.788 0 0 1 1.115 1.115l-3.421 3.421a.788.788 0 0 1-1.115 0z"/>
+                                    </svg>
+                                    <span>12:34 PM - 1 Jan 2024</span>
+                                </div>
+                                <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                    <button class="flex items-center space-x-1">
+                                        <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14.047 2.188c-1.898 0-3.656.802-4.875 2.109-1.219-1.307-2.977-2.109-4.875-2.109C1.959 2.188 0 4.148 0 6.375c0 3.236 3.708 6.31 8.957 11.13.266.247.648.247.914 0 5.25-4.82 8.957-7.894 8.957-11.13 0-2.227-1.959-4.187-4.781-4.187z"/>
+                                        </svg>
+                                        <span>12 Likes</span>
+                                    </button>
+                                    <button class="flex items-center space-x-1">
+                                        <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2L4 14h16L12 2z"/>
+                                        </svg>
+                                        <span>Upvote</span>
+                                    </button>
+                                    <button class="flex items-center space-x-1">
+                                        <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 22l8-12H4l8 12z"/>
+                                        </svg>
+                                        <span>Downvote</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Comment section -->
+                            <div class="mt-4">
+                                <p class="text-sm font-medium text-gray-900">Comments</p>
+                                <div class="mt-2 space-y-4">
+                                    <!-- Top Comment Item -->
+                                    <div class="flex space-x-3">
+                                        <div class="flex-shrink-0">
+                                            <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Commenter Avatar">
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">Commenter Name</p>
+                                            <p class="text-sm text-gray-500">@commenterusername</p>
+                                            <p class="mt-1 text-sm text-gray-900">This is an example comment. It can also span multiple lines and should be well-formatted.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex">
+                                    <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200" placeholder="Write a comment...">
+                                    <button class="ml-2 px-3 py-2 bg-blue-500 text-white rounded-lg shadow-sm hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200">Comment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Additional Tweet Items can be added similarly -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
