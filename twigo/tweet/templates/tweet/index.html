@@ -7,26 +7,33 @@
         </div>
         <div class="border-t border-gray-200">
             <ul class="divide-y divide-gray-200">
-                <!-- Example Tweet Item -->
+                {% comment %} Twigos Postings Lists {% endcomment %}
+                {% for twigo_post in twigos %}
+
                 <li class="px-4 py-4 sm:px-6">
                     <div class="flex space-x-3">
                         <div class="flex-shrink-0">
                             <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
                         </div>
                         <div class="min-w-0 flex-1">
-                            <p class="text-sm font-medium text-gray-900">User Name</p>
-                            <p class="text-sm text-gray-500">@username</p>
-                            <p class="mt-1 text-sm text-gray-900">
-                                This is an example twigo. You can put the tweet content here. It can span multiple lines and should be well-formatted.
-                            </p>
+                            <p class="text-sm font-medium text-gray-900">{{twigo_post.user.first_name}}_{{twigo_post.user.last_name}}</p>
+                            <p class="text-sm text-gray-500">@{{twigo_post.user.username}}</p>
+                            <p class="mt-1 text-sm text-gray-900">{{twigo_post.content}}</p>
                             <!-- Image attachment -->
-                            <img class="mt-2 rounded-lg w-full" src="https://via.placeholder.com/600x400" alt="Attached Image">
+                            <img class="mt-2 rounded-lg w-full" src="{{twigo_post.image.url}}" alt="Attached Image">
                             <div class="mt-2 flex justify-between">
                                 <div class="flex items-center text-sm text-gray-500">
                                     <svg class="mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 4.354a8.646 8.646 0 1 0 8.646 8.646A8.656 8.656 0 0 0 12 4.354zm-1.733 12.017l-3.422-3.421a.788.788 0 0 1 1.115-1.115l2.307 2.307V9.444a.788.788 0 0 1 1.575 0v4.698l2.307-2.307a.788.788 0 0 1 1.115 1.115l-3.421 3.421a.788.788 0 0 1-1.115 0z"/>
                                     </svg>
-                                    <span>12:34 PM - 1 Jan 2024</span>
+
+                                    {% comment %} Twigo post creation or updation time {% endcomment %}
+                                    {% if twigo_post.updated_at %}
+                                        <span>{{twigo_post.updated_at}}</span>
+                                    {% else %}
+                                        <span>{{twigo_post.created_at}}</span>
+                                    {% endif %}
+
                                 </div>
                                 <div class="flex items-center space-x-4 text-sm text-gray-500">
                                     <button class="flex items-center space-x-1">
@@ -73,6 +80,7 @@
                         </div>
                     </div>
                 </li>
+                {% endfor %}
                 <!-- Additional Tweet Items can be added similarly -->
             </ul>
         </div>
