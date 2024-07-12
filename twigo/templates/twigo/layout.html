@@ -145,6 +145,37 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+<script>
+    function showConfirmationModal(twigoPostId) {
+        // Hide the dropdown menu
+        document.getElementById(`dropdownDotsHorizontal-${twigoPostId}`).classList.add('hidden');
+        // Show the confirmation modal
+        const modal = document.getElementById(`popup-modal-${twigoPostId}`);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function deleteTwigoPost(twigoPostId) {
+        fetch(`{% url 'delete_twigo_post' 0 %}`.replace('/0/', `/${twigoPostId}/`), {
+            method: 'POST', // Changed to POST
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // Include empty body for POST request
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById(`twigo-post-${twigoPostId}`).remove();
+                window.location.href = "{% url 'twigo_home' %}";
+            } else {
+                alert('Failed to delete the post.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
 </body>
 </html>
