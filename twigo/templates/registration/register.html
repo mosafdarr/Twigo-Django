@@ -1,0 +1,13 @@
+<h1>Registration Form</h1>
+<form method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button class="btn btn-primary">Register</button>
+</form>
+<h3>Alread have an account</h3>
+<div style="display: inline-block;">
+    <a href="{% url 'login' %}">Login Here</a>
+</div>
+<div style="display: inline-block;">
+    <a href="{% url 'twigo_home' %}">Home Page</a>
+</div>

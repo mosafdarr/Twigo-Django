@@ -41,11 +41,13 @@ def update_twigo_post(request, twigo_id):
 def delete_twigo_post(request, twigo_id):
     twigo_post = get_object_or_404(TweetModel, pk=twigo_id, user=request.user)
     if request.method == "POST":
+        print(twigo_id)
         twigo_post.delete()
         return redirect('twigos_home')
     else:
+        print(twigo_id)
         form = TweetForm(instance=twigo_post)
-    return render(request, 'tweet/delete_confirm_page.html', {"form": form})
+    return render(request, 'tweet/index.html', {"form": form})
 
 def register(request):
     if request.method == "POST":
@@ -58,4 +60,4 @@ def register(request):
             return redirect('twigos_home')
     else:
         form = UserRegistrationForm()
-    return render(request, 'register/register.html', {"form": form})
+    return render(request, 'registration/register.html', {"form": form})
