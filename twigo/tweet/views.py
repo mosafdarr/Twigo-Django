@@ -1,17 +1,16 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .models import TweetModel
-from .forms import TweetForm
+from .forms import TweetForm, UserRegistrationForm
 
-# Create your views here.
-def index_home(request):
-    return render(request, 'tweet/index.html')
 
 def twigos_home(request):
     twigos = TweetModel.objects.all().order_by('-created_at')
     return render(request, 'tweet/index.html', {"twigos": twigos})
 
+@login_required
 def create_twigo(request):
     if request.method == "POST":
         form = TweetForm(request.POST, request.FILES)
@@ -24,6 +23,7 @@ def create_twigo(request):
         form = TweetForm()
     return render(request, 'index.html', {"form": form})
 
+@login_required
 def update_twigo_post(request, twigo_id):
     twigo_post = get_object_or_404(TweetModel, pk=twigo_id, user=request.user)
     if request.method == "POST":
@@ -37,6 +37,7 @@ def update_twigo_post(request, twigo_id):
         form = TweetForm(instance=twigo_post)
     return render(request, 'tweet/index.html', {"form": form})
 
+@login_required
 def delete_twigo_post(request, twigo_id):
     twigo_post = get_object_or_404(TweetModel, pk=twigo_id, user=request.user)
     if request.method == "POST":
@@ -45,3 +46,16 @@ def delete_twigo_post(request, twigo_id):
     else:
         form = TweetForm(instance=twigo_post)
     return render(request, 'tweet/delete_confirm_page.html', {"form": form})
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            login(request, user)
+            return redirect('twigos_home')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'register/register.html', {"form": form})
