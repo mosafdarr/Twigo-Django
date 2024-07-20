@@ -37,10 +37,20 @@
                 <li class="px-4 py-4 sm:px-6">
                     <div class="flex space-x-3">
                         <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
+                            {% if twigo_post.user.image.url %}
+                                <img class="h-10 w-10 rounded-full" src="{{twigo_post.user.image.url}}" alt="User Avatar">
+                            {% else %}
+                                <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
+                            {% endif %}
                         </div>
                         <div class="min-w-0 flex-1">
-                            <p class="text-sm font-medium text-gray-900">{{ twigo_post.user.username }}</p>
+                            <p class="text-sm font-medium text-gray-900">
+                                {% if twigo_post.user.first_name and twigo_post.user.last_name%}
+                                {{ twigo_post.user.first_name }} {{twigo_post.user.last_name}}
+                                {% else %}
+                                {{twigo_post.user.username}}
+                                {% endif %}
+                            </p>
                             <p class="text-sm text-gray-500">@{{ twigo_post.user.username }}</p>
                         </div>
                         <button id="dropdownMenuIconHorizontalButton-{{ twigo_post.id }}" data-dropdown-toggle="dropdownDotsHorizontal-{{ twigo_post.id }}" class="inline-flex items-center p-2 text-sm text-gray-500 hover:text-gray-700 focus:outline-none" type="button"> 
