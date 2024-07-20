@@ -123,15 +123,27 @@
                 <span class="flex-1 ms-3 whitespace-nowrap">Log In</span>
                 </a>
             </li>
+            <li>
+                <a href="register/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    <path d="M20 8h-2V6h-2v2h-2v2h2v2h2v-2h2z"/>
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Register</span>
+                </a>
+            </li>
             {% endif %}
             {% if user.is_authenticated %}
             <li>
-                <a href="{% url 'logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h6a1 1 0 110 2H5v10h5a1 1 0 110 2H4a1 1 0 01-1-1V4zm7.293 5.293a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L12 11.414V16a1 1 0 11-2 0v-4.586l-1.293 1.293a1 1 0 01-1.414-1.414l3-3z" clip-rule="evenodd"/>
-                </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
-                </a>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h6a1 1 0 110 2H5v10h5a1 1 0 110 2H4a1 1 0 01-1-1V4zm7.293 5.293a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L12 11.414V16a1 1 0 11-2 0v-4.586l-1.293 1.293a1 1 0 01-1.414-1.414l3-3z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
+                    </button>
+                </form>
             </li>
         {% endif %}
         </ul>
