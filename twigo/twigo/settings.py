@@ -142,5 +142,5 @@ NPM_BIN_PATH = r'C:\Program Files\nodejs\npm.cmd'
 
 LOGIN_URL = "/accounts/login"
 
-LOGIN_REDIRECT_URL = "/tweet/"
-LOGOUT_REDIRECT_URL = "/tweet/"
+LOGIN_REDIRECT_URL = "/twigo/"
+LOGOUT_REDIRECT_URL = "/twigo/"
