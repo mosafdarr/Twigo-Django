@@ -1,0 +1,41 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        Twigo
+        {% endblock title %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-100">    
+
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+                <a href="/twigo" class="flex ms-2 md:me-24">
+                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Twigo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    {% comment %} will add here {% endcomment %}
+    {% block layout %}{% endblock layout %}
+
+    <footer class="text-center bg-white border-t border-gray-200 mt-10">
+        <div class="container mx-auto px-4 py-4 mr-0">
+            <p class="text-center text-gray-500">&copy; 2024 Twigo. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

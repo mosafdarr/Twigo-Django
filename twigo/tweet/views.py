@@ -49,7 +49,7 @@ def delete_twigo_post(request, twigo_id):
 
 def register(request):
     if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
+        form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
