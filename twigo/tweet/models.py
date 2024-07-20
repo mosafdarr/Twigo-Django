@@ -9,4 +9,4 @@ class TweetModel(models.Model):
     image = models.ImageField(upload_to="photos/", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.content[:10]}"
+        return f"{self.id} - {self.user.username} - {self.content[:10]}"
