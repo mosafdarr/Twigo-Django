@@ -4,28 +4,28 @@
 {% block twigo %}
 <div class="container mx-auto px-4 py-8 mt-10">
     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <header class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Twigos</h3>
+        <header class="px-4 py-5 sm:px-6 bg-gray-800 text-white">
+            <h3 class="text-lg leading-6 font-medium">Twigos</h3>
         </header>
         <div class="container mx-auto px-4 py-3">
             <form method="POST" action="{% url 'create_twigo_post' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mt-0">
-                    <textarea id="content" name="content" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"></textarea>
+                    <textarea id="content" name="content" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-gray-300 focus:outline-none" placeholder="What's happening?"></textarea>
                 </div>
                 <div class="mt-4">
                     <div class="flex items-center">
                         <label for="image" class="cursor-pointer">
                             <svg class="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4zm0-2h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3z"/>
-                            <path d="M8 10a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM4 15a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1H4v-1z"/>
-                        </svg>
+                                <path d="M4 3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4zm0-2h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3z"/>
+                                <path d="M8 10a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM4 15a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1H4v-1z"/>
+                            </svg>
                         </label>
                         <input type="file" id="image" name="image" class="hidden">
                     </div>
                 </div>
                 <div class="mt-6 flex justify-end">
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">Post</button>
+                    <button type="submit" class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 focus:outline-none focus:ring focus:ring-blue-200">Post</button>
                 </div>
             </form>
         </div>
@@ -99,12 +99,12 @@
                             {% endfor %}
                         </div>
                         <div class="mt-4 flex">
-                            <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200" placeholder="Write a comment...">
-                            <button class="ml-2 px-3 py-2 bg-blue-500 text-white rounded-lg shadow-sm hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200">Comment</button>
+                            <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-gray-200" placeholder="Write a comment...">
+                            <button class="ml-2 px-3 py-2 bg-gray-700 text-white rounded-lg shadow-sm hover:bg-gray-800 focus:outline-none focus:ring focus:ring-gray-200">Comment</button>
                         </div>
                     </div>
                     <!-- Twigo post Dropdown menu -->
-                        <div id="dropdownDotsHorizontal-{{ twigo_post.id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <div id="dropdownDotsHorizontal-{{ twigo_post.id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconHorizontalButton-{{ twigo_post.id }}">
                             {% if user.is_authenticated and user ==  twigo_post.user %}
                             <li>
