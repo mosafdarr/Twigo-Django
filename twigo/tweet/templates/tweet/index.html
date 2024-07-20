@@ -1,4 +1,5 @@
 {% extends "twigo/layout.html" %}
+{% load custom_filters %}
 
 {% block twigo %}
 <div class="container mx-auto px-4 py-8 mt-10">
@@ -6,6 +7,29 @@
         <header class="px-4 py-5 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">Twigos</h3>
         </header>
+        <div class="container mx-auto px-4 py-3">
+            <form method="POST" action="{% url 'create_twigo_post' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mt-0">
+                    <textarea id="content" name="content" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"></textarea>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center">
+                        <label for="image" class="cursor-pointer">
+                            <svg class="w-6 h-6 text-gray-500 hover:text-gray-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4zm0-2h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3z"/>
+                            <path d="M8 10a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM4 15a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1H4v-1z"/>
+                        </svg>
+                        </label>
+                        <input type="file" id="image" name="image" class="hidden">
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">Post</button>
+                </div>
+            </form>
+        </div>
+        <hr class="my-6 border-2 border-gray-250">
         <div class="border-t border-gray-200">
             <ul class="divide-y divide-gray-200">
                 <!-- Twigos Postings Lists -->
@@ -80,16 +104,18 @@
                         </div>
                     </div>
                     <!-- Twigo post Dropdown menu -->
-                    <div id="dropdownDotsHorizontal-{{ twigo_post.id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div id="dropdownDotsHorizontal-{{ twigo_post.id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconHorizontalButton-{{ twigo_post.id }}">
+                            {% if user.is_authenticated and user ==  twigo_post.user %}
                             <li>
                                 <button data-modal-target="popup-modal-{{ twigo_post.id }}" data-modal-toggle="popup-modal-{{ twigo_post.id }}" class="block w-full text-start px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onclick="showConfirmationModal({{twigo_post.id}})">
                                     Delete
                                 </button>
                             </li>
                             <li>
-                                <a href="{% url 'update_twigo_post' twigo_post.id %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-target="editModal-{{ twigo_post.id }}" data-modal-toggle="editModal-{{ twigo_post.id }}">Edit</a>
                             </li>
+                            {% endif %}
                             <li>
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hide (Upcoming)</a>
                             </li>
@@ -98,6 +124,35 @@
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Copy Link (Upcoming)</a>
                         </div>
                     </div>
+                    <!-- Edit Twigo Post Modal -->
+                    <div id="editModal-{{ twigo_post.id }}" tabindex="-1" aria-hidden="true" class="hidden fixed top-0 left-0 right-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-full max-w-2xl">
+                            <button type="button" class="absolute top-3 right-3 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editModal-{{ twigo_post.id }}">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                            <div class="p-6">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Edit Twigo Post</h3>
+                                <form method="POST" action="{% url 'update_twigo_post' twigo_post.id %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mt-4">
+                                        <label for="content-{{ twigo_post.id }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Content</label>
+                                        <textarea id="content-{{ twigo_post.id }}" name="content" rows="5" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200">{{ twigo_post.content }}</textarea>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label for="image-{{ twigo_post.id }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200">New Image</label>
+                                        <input type="file" id="image-{{ twigo_post.id }}" name="image" class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-600 dark:border-gray-500">
+                                    </div>
+                                    <div class="mt-6 flex justify-end">
+                                        <button type="button" class="mr-3 px-4 py-2 bg-gray-600 text-gray-900 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-700" data-modal-hide="editModal-{{ twigo_post.id }}">Cancel</button>
+                                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Confirmation Modal -->
                     <div id="popup-modal-{{ twigo_post.id }}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-4 w-full max-w-md max-h-full">
@@ -130,6 +185,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}
