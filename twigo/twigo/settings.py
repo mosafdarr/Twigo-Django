@@ -89,15 +89,15 @@ WSGI_APPLICATION = 'twigo.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': dj_database_url.config(default=os.envrion.get('TWIGO_DATABASE_URL'))
-    {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Twigo_app',
-        'USER': 'postgres',
-        'PASSWORD': 'mosafdar@123', # use environment variable to get these credentials
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
+    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    # {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'Twigo_app',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'mosafdar@123', # use environment variable to get these credentials
+    #     'HOST': 'localhost',
+    #     'PORT': '5432'
+    # }
 }
 
 # Configuring the default connection
