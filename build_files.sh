@@ -11,4 +11,4 @@
 
    # collecting static files
    echo "Collect Static..."
-   python3.12 twigo/manage.py collectstatic --noinput --clear --output staticfiles_build/static
+   python3.12 twigo/manage.py collectstatic --noinput
