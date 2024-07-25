@@ -2,3 +2,7 @@
 __pycache__/
 node_modules/
 .vscode/
+.vercel
+*.env
+bin/
+lib/
