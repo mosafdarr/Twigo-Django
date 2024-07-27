@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-# Install npm dependencies
-npm install
-
-# Build frontend assets (assuming you have a build script in your package.json)
-npm run build
-
 # Build the project
 echo "Building the project..."
 python3.12 -m pip install -r requirements.txt
