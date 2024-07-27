@@ -11,4 +11,4 @@ python3.12 twigo/manage.py migrate --noinput
 
 # collecting static files
 echo "Collect Static..."
-python3.12 twigo/manage.py collectstatic --noinput --clear
+python3.12 twigo/manage.py collectstatic --noinput
